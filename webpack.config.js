@@ -1,44 +1,45 @@
-var webpack = require('webpack');
+var webpack = require("webpack")
 
 module.exports = {
-	entry: __dirname + '/src/index.tsx',
+	entry: "./src/index.tsx",
 	output: {
-		filename: 'bundle.min.js',
-		path: __dirname + '/lib',
-		publicPath: '/lib'
+		filename: "bundle.js",
+		publicPath: "/lib",
+		path: __dirname + "/lib"
 	},
-	devtool: 'source-map',
+
+	// Enable sourcemaps for debugging webpack's output.
+	devtool: "source-map",
+
 	resolve: {
-		extensions: ['.ts', '.tsx', '.json']
+		// Add '.ts' and '.tsx' as resolvable extensions.
+		extensions: [".ts", ".tsx", ".js", ".json"]
 	},
+
 	module: {
 		rules: [
-			{
-				test: /\.tsx?$/,
-				exclude: /(node_modules)/,
-				loader: 'awesome-typescript-loader',
-			},
-			{
-				enforce: 'pre',
-				test: /\.js$/,
-				loader: 'source-map-loader'
-			}
+			// All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+			{test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+
+			// All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+			{ enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
 		]
 	},
+
+	// When importing a module whose path matches one of the following, just
+	// assume a corresponding global variable exists and use that instead.
+	// This is important because it allows us to avoid bundling all of our
+	// dependencies, which allows browsers to cache those libraries between builds.
 	externals: {
-		'react': 'React',
-		'react-dom': 'ReactDOM',
-		'react-router-dom': 'ReactRouterDOM',
-		'js-cookie': 'Cookies'
+		"react": "React",
+		"react-dom": "ReactDOM",
+		"react-router-dom": "ReactRouterDOM",
+		"js-cookie": "Cookies"
 	},
-	plugins: [
-		new webpack.optimize.UglifyJsPlugin({
-			minimize: true
-		})
-	],
+	
 	devServer: {
 		inline: true,
 		historyApiFallback: true,
-		port: 3000
+		port: 8080
 	}
-}
+};
