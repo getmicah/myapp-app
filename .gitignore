@@ -2,8 +2,7 @@
 .DS_Store
 .vscode
 node_modules
-lib
-auth
+dist
 
 # Binaries for programs and plugins
 *.exe
