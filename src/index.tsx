@@ -1,34 +1,26 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import * as Cookies from 'js-cookie'
+import * as React from "react"
+import * as ReactDOM from "react-dom"
 
-import * as AppConfig from '../config/config.dev.json'
+import Config from "./config"
+import Main from "./components/Main"
+import NotFound from "./components/NotFound"
 
-export interface State {}
-
-class App extends React.Component<null, State> {
-	constructor() {
-		super(null);
-		this.state = {}
-	}
-
-	componentWillMount() {
-		
-	}
-
-	render() {
-		return(
-			<div id='app-container'>
-				<h1>Spotify webapp</h1>
-			</div>
-		);
+export function router() {
+	const path = window.location.pathname
+	console.log(path)
+	switch (path) {
+		case "/":
+			return <Main/>
+		default:
+			return <NotFound/>
 	}
 }
+const App = () => {
+	return (
+		<div id="app">
+			{router()}
+		</div>
+	)
+}
 
-ReactDOM.render(
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>,
-	document.getElementById('app')
-);
+ReactDOM.render(<App />, document.getElementById("app"))
