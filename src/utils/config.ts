@@ -6,10 +6,10 @@ interface config {
 		scope: string[]
 	}
 	cookie: {
-		spotifyAccessToken: string
-		spotifyAuthState: string
-		spotifyRefreshToken: string
-		spotifyTokenExpiry: string
+		state: string
+		accessToken: string
+		refreshToken: string
+		tokenExpiry: string
 	}
 	localStorage: {
 		accessToken: string
@@ -26,6 +26,6 @@ interface config {
 	appURL: string
 }
 
-const Config: config = require("../config/config.json")
+const Config: config = require("../../config/config.json")
 
 export default Config

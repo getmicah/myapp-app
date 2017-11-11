@@ -1,32 +1,20 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
+import router from "./utils/router"
 import * as storage from "./utils/storage"
-import router from "./router"
+import * as tokenActions from "./actions/TokenActions"
 
-interface State {
-	accessToken: string
-}
-
-class App extends React.Component<null, State> {
-	constructor() {
-		super(null)
-		this.state = {
-			accessToken: null
-		}
-	}
-
-	componentWillMount() {
-		storage.checkLocalStorage((accessToken) => {
-			if (accessToken) {
-				this.setState({accessToken})
-				return
+class App extends React.Component {
+	componentDidMount() {
+		storage.loadLocalStorage((value) => {
+			if (value) {
+				return tokenActions.setAccessToken(value)
 			}
 		})
-		storage.checkCookies((accessToken) => {
-			if (accessToken) {
-				this.setState({accessToken})
-				return
+		storage.loadCookies((value) => {
+			if (value) {
+				return tokenActions.setAccessToken(value)
 			}
 		})
 	}
@@ -34,7 +22,7 @@ class App extends React.Component<null, State> {
 	render() {
 		return (
 			<div id="app">
-				{router(window.location.pathname, this.state.accessToken)}
+				{router()}
 			</div>
 		)
 	}

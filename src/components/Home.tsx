@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import Config from "../config"
+import Config from "../utils/config"
 
 export default class Home extends React.Component {
 	render() {

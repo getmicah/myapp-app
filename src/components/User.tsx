@@ -1,11 +1,14 @@
 import * as React from "react"
 
-import Config from "../config"
+import Config from "../utils/config"
 import * as storage from "../utils/storage"
+import * as tokenActions from "../actions/TokenActions"
 
 export default class User extends React.Component {
 	onLogoutClick(): void {
-		storage.clearLocalStorage()
+		storage.clearLocalStorage(() => {
+			tokenActions.removeAccessToken()
+		})
 	}
 
 	render() {

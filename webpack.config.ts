@@ -36,7 +36,8 @@ module.exports = {
 		"react-dom": "ReactDOM",
 		"react-router-dom": "ReactRouterDOM",
 		"js-cookie": "Cookies",
-		"moment": "moment"
+		"moment": "moment",
+		"flux": "Flux"
 	},
 	
 	devServer: {

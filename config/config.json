@@ -11,10 +11,10 @@
 		]
 	},
 	"cookie": {
-		"spotifyAccessToken": "spotify_access_token",
-		"spotifyAuthState": "spotify_auth_state",
-		"spotifyRefreshToken": "spotify_refresh_token",
-		"spotifyTokenExpiry": "spotify_token_expiry"
+		"state": "state",
+		"accessToken": "access_token",
+		"refreshToken": "refresh_token",
+		"tokenExpiry": "token_expiry"
 	},
 	"localStorage": {
 		"accessToken": "accessToken",
