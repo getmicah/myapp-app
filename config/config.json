@@ -21,6 +21,6 @@
 	"port": 3000,
 	"version": 1,
 	"apiURL": "http://localhost:3000",
-	"appURL": "http://localhost:8080",
+	"appURL": "http://micahcowell.com",
 	"production": false
 }
