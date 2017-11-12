@@ -1,27 +1,56 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
+import config from "./utils/config"
 import router from "./utils/router"
-import * as storage from "./utils/storage"
-import * as tokenActions from "./actions/TokenActions"
+import viewStore from "./stores/ViewStore"
+import * as viewActions from "./actions/ViewActions"
+import { User, UserJSON } from "./models/UserModel"
+import * as userActions from "./actions/UserAction"
 
-class App extends React.Component {
+interface state {
+	loaded: boolean
+}
+
+class App extends React.Component<null, state> {
+	constructor() {
+		super(null)
+		this.state = {
+			loaded: viewStore.get()
+		}
+	}
+
+	updateView() {
+		this.setState({
+			loaded: viewStore.get()
+		})
+	}
+
 	componentDidMount() {
-		storage.loadLocalStorage((value) => {
-			if (value) {
-				return tokenActions.setAccessToken(value)
-			}
+		viewStore.on("change", this.updateView.bind(this))
+		fetch(`${config.apiURL}/me`, {
+			method: "GET",
+			credentials: "include"
 		})
-		storage.loadCookies((value) => {
-			if (value) {
-				return tokenActions.setAccessToken(value)
-			}
-		})
+			.then((res) => {
+				if (!res.ok) {
+					throw Error();
+				}
+				return res.json()
+			})
+			.then((json: UserJSON) => {
+				const user = new User(json)
+				userActions.set(user)
+				viewActions.show()
+			}).catch((e) => {
+				userActions.remove()
+				viewActions.show()
+			})
 	}
 
 	render() {
 		return (
-			<div id="app">
+			<div id="app" className={this.state.loaded ? null : "hidden"}>
 				{router()}
 			</div>
 		)

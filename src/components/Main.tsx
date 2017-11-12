@@ -1,35 +1,37 @@
 import * as React from "react"
 
-import tokenStore from "../stores/TokenStore"
+import userStore from "../stores/UserStore"
+import { User } from "../models/UserModel"
+
 import Home from "./Home"
-import User from "./User"
+import Feed from "./Feed"
 
 interface state {
-	accessToken: string
+	user: User
 }
 
 export default class Main extends React.Component<null, state> {
 	constructor() {
 		super(null)
 		this.state = {
-			accessToken: null
+			user: userStore.getUser()
 		}
 	}
 
 	updateAccessToken() {
 		this.setState({
-			accessToken: tokenStore.getAccessToken()
+			user: userStore.getUser()
 		})
 	}
 
 	componentWillMount() {
-		tokenStore.on("change", this.updateAccessToken.bind(this))
+		userStore.on("change", this.updateAccessToken.bind(this))
 	}
 	
 	render() {
 		return(
 			<main>
-				{this.state.accessToken ? <User/> : <Home/>}
+				{this.state.user ? <Feed user={this.state.user}/> : <Home/>}
 			</main>
 		)
 	}

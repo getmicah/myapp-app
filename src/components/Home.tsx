@@ -2,13 +2,13 @@ import * as React from "react"
 
 import Config from "../utils/config"
 
-export default class Home extends React.Component {
-	render() {
-		return(
-			<div>
-				<h3>Home page</h3>
-				<a href={Config.apiURL+"/login"}>Log in with Spotify</a>
-			</div>
-		)
-	}
+const Home: React.StatelessComponent<null> = () => {
+	return(
+		<div>
+			<h1>Home</h1>
+			<a href={Config.apiURL+"/auth/login"}>Log in with Spotify</a>
+		</div>
+	)
 }
+
+export default Home
