@@ -3,31 +3,29 @@ import * as ReactDOM from "react-dom"
 
 import config from "./utils/config"
 import router from "./utils/router"
-import viewStore from "./stores/ViewStore"
-import * as viewActions from "./actions/ViewActions"
+import userStore from "./stores/UserStore"
 import { User, UserJSON } from "./models/UserModel"
-import * as userActions from "./actions/UserAction"
+import * as userActions from "./actions/UserActions"
 
 interface state {
-	loaded: boolean
+	showApp: boolean
 }
 
 class App extends React.Component<null, state> {
 	constructor() {
 		super(null)
 		this.state = {
-			loaded: viewStore.get()
+			showApp: false
 		}
 	}
 
 	updateView() {
 		this.setState({
-			loaded: viewStore.get()
+			showApp: true
 		})
 	}
 
-	componentDidMount() {
-		viewStore.on("change", this.updateView.bind(this))
+	fetchUser() {
 		fetch(`${config.apiURL}/me`, {
 			method: "GET",
 			credentials: "include"
@@ -39,18 +37,20 @@ class App extends React.Component<null, state> {
 				return res.json()
 			})
 			.then((json: UserJSON) => {
-				const user = new User(json)
-				userActions.set(user)
-				viewActions.show()
+				userActions.set(new User(json))
 			}).catch((e) => {
 				userActions.remove()
-				viewActions.show()
 			})
+	}
+
+	componentDidMount() {
+		userStore.on("change", this.updateView.bind(this))
+		this.fetchUser()
 	}
 
 	render() {
 		return (
-			<div id="app" className={this.state.loaded ? null : "hidden"}>
+			<div id="app" className={this.state.showApp ? null : "hidden"}>
 				{router()}
 			</div>
 		)

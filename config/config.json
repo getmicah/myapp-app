@@ -2,16 +2,10 @@
 	"auth": {
 		"redirect": "http://localhost:3000/auth/callback",
 		"scope": [
-			"user-modify-playback-state",
 			"user-read-currently-playing",
 			"user-read-playback-state",
 			"user-read-recently-played"
 		]
-	},
-	"cookie": {
-		"state": "state",
-		"accessToken": "access_token",
-		"refreshToken": "refresh_token"
 	},
 	"env": {
 		"spotifyID": "SPOTIFY_ID",
@@ -21,6 +15,6 @@
 	"port": 3000,
 	"version": 1,
 	"apiURL": "http://localhost:3000",
-	"appURL": "http://micahcowell.com",
+	"appURL": "http://localhost:8080",
 	"production": false
 }

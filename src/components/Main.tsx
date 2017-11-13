@@ -1,5 +1,6 @@
 import * as React from "react"
 
+import config from "../utils/config"
 import userStore from "../stores/UserStore"
 import { User } from "../models/UserModel"
 
@@ -8,13 +9,15 @@ import Feed from "./Feed"
 
 interface state {
 	user: User
+	stations: string[]
 }
 
 export default class Main extends React.Component<null, state> {
 	constructor() {
 		super(null)
 		this.state = {
-			user: userStore.getUser()
+			user: userStore.getUser(),
+			stations: null
 		}
 	}
 
@@ -24,8 +27,29 @@ export default class Main extends React.Component<null, state> {
 		})
 	}
 
+	fetchNewStations() {
+		fetch(`${config.apiURL}/station?index=0&count=5`, {
+			method: "GET",
+			credentials: "include"
+		})
+			.then((res) => {
+				if (!res.ok) {
+					throw Error()
+				}
+				return res.json()
+			})
+			.then((json) => {
+				this.setState({
+					stations: json.stations
+				})
+			}).catch((e) => {
+				console.log(e)
+			})
+	}
+
 	componentWillMount() {
 		userStore.on("change", this.updateAccessToken.bind(this))
+		this.fetchNewStations()
 	}
 	
 	render() {
