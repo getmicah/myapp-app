@@ -1,0 +1,18 @@
+main, section {
+	transition: opacity 200ms ease;
+}
+main.hidden {
+	opacity: 0;
+}
+section {
+	position: absolute;
+	width: 100%;
+}
+section.hidden {
+	transition: opacity 500ms ease;
+	z-index: -10;
+	opacity: 0;
+}
+li.selected {
+	color: red;
+}

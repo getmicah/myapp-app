@@ -2,7 +2,7 @@ import * as React from "react"
 
 import Logout from "./Logout"
 
-const Header: React.StatelessComponent<null> = (props) => {
+const Header: React.StatelessComponent<null> = () => {
 	return (
 		<header>
 			<h1>myapp</h1>

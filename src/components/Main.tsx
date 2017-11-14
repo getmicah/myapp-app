@@ -6,18 +6,19 @@ import authStore from "../stores/AuthStore"
 import * as authActions from "../actions/AuthActions"
 
 import Header from "./Header"
-import UserView from "./UserView"
+import App from "./App"
 import Login from "./Login"
 
+interface props {}
 interface state {
 	authenticated: boolean
 	loaded: boolean
 	error: string
 }
 
-export default class Main extends React.Component<null, state> {
-	constructor() {
-		super(null)
+export default class Main extends React.Component<props, state> {
+	constructor(props) {
+		super(props)
 		this.state = {
 			authenticated: authStore.getAuthentication(),
 			loaded: false,
@@ -60,7 +61,7 @@ export default class Main extends React.Component<null, state> {
 		return (
 			<main className={this.state.loaded ? null : "hidden"}>
 				{this.state.error ? this.state.error : null}
-				{this.state.authenticated ? <UserView /> : <Login />}
+				{this.state.authenticated ? <App /> : <Login />}
 			</main>
 		)
 	}

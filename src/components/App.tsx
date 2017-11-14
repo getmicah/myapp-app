@@ -9,7 +9,9 @@ import trackStore from "../stores/trackStore"
 import * as trackActions from "../actions/TrackActions"
 
 import Section from "./Section"
+import Logout from "./Logout"
 
+interface props {}
 interface state {
 	artists: SpotifyItem[]
 	tracks: SpotifyItem[]
@@ -17,9 +19,9 @@ interface state {
 	showTracks: boolean
 }
 
-export default class UserView extends React.Component<null, state> {
-	constructor() {
-		super(null)
+export default class App extends React.Component<props, state> {
+	constructor(props) {
+		super(props)
 		this.state = {
 			artists: artistStore.get(),
 			tracks: trackStore.get(),
@@ -73,9 +75,9 @@ export default class UserView extends React.Component<null, state> {
 	}
 
 	render() {
-		console.log(this.state.artists)
 		return (
 			<div>
+				<Logout />
 				<Section
 					className={this.state.showArtists ? null : "hidden"}
 					type="artist"

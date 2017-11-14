@@ -1,22 +1,17 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 import Main from "./components/Main"
 import Header from "./components/Header"
-import NotFound from "./components/NotFound"
+require("./stylesheets/main.scss")
 
-const App: React.StatelessComponent<null> = () => {
+const Root: React.StatelessComponent<null> = () => {
 	return (
-		<div id="app">
+		<div>
 			<Header />
 			<Main />
 		</div>
 	)
 }
 
-ReactDOM.render((
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>
-), document.getElementById("root"))
+ReactDOM.render(<Root/>, document.getElementById("root"))
