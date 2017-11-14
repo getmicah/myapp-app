@@ -11,3 +11,15 @@ export function showArtists() {
 		type: "SHOW_ARTISTS"
 	})
 }
+
+export function hideTracks() {
+	dispatcher.dispatch({
+		type: "HIDE_TRACKS"
+	})
+}
+
+export function showTracks() {
+	dispatcher.dispatch({
+		type: "SHOW_TRACKS"
+	})
+}

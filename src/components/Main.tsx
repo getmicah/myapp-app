@@ -11,6 +11,7 @@ import Login from "./Login"
 
 interface state {
 	authenticated: boolean
+	loaded: boolean
 	error: string
 }
 
@@ -19,6 +20,7 @@ export default class Main extends React.Component<null, state> {
 		super(null)
 		this.state = {
 			authenticated: authStore.getAuthentication(),
+			loaded: false,
 			error: null
 		}
 	}
@@ -39,8 +41,10 @@ export default class Main extends React.Component<null, state> {
 				return res.json()
 			})
 			.then(() => {
+				this.setState({loaded: true})
 				authActions.resolve()
 			}).catch(() => {
+				this.setState({loaded: true})
 				authActions.reject()
 			})
 	}
@@ -54,8 +58,7 @@ export default class Main extends React.Component<null, state> {
 	
 	render() {
 		return (
-			<main>
-				<Header authenticated={this.state.authenticated}/>
+			<main className={this.state.loaded ? null : "hidden"}>
 				{this.state.error ? this.state.error : null}
 				{this.state.authenticated ? <UserView /> : <Login />}
 			</main>

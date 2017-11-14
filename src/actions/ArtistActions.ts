@@ -1,21 +1,21 @@
 import dispatcher from "../utils/dispatcher"
 import { SpotifyItem } from "../models/SpotifyModel"
 
-export function addArtist(artist: SpotifyItem) {
+export function add(artist: SpotifyItem) {
 	dispatcher.dispatch({
 		type: "ADD_ARTIST",
 		payload: artist
 	})
 }
 
-export function removeArtist(artist: SpotifyItem) {
+export function remove(artist: SpotifyItem) {
 	dispatcher.dispatch({
 		type: "REMOVE_ARTIST",
 		payload: artist
 	})
 }
 
-export function removeArtistByIndex(i: number) {
+export function removeByIndex(i: number) {
 	dispatcher.dispatch({
 		type: "REMOVE_ARTIST_INDEX",
 		payload: i

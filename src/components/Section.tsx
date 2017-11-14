@@ -1,34 +1,36 @@
 import * as React from "react"
 
 import { SpotifyItem, SpotifyItemJSON } from "../models/SpotifyModel"
-import spotifyStore from "../stores/SpotifyStore"
-import * as spotifyActions from "../actions/SpotifyActions"
 
 import MusicSearch from "./MusicSearch"
-import SearchResults from "./SearchResults"
-import SelectedItems from "./SelectedItems"
+import SpotifyList from "./SpotifyList"
 
 interface KeyboardEvent {
 	keyCode: number
 	preventDefault: any
 }
 
-interface props {
+export interface props {
+	className: string
+	type: "artist" | "track"
+	store: any
+	actions: any
 	next: any
+	back: any
 }
 
-interface state {
+export interface state {
 	selected: SpotifyItem[]
 	searchResults: SpotifyItem[]
 	selectedIndex: number
 	error: string
 }
 
-export default class AddArtists extends React.Component<props, state> {
+export default class Section extends React.Component<props, state> {
 	constructor(props) {
 		super(props)
 		this.state = {
-			selected: spotifyStore.getArtists(),
+			selected: props.store.get(),
 			searchResults: [],
 			selectedIndex: -1,
 			error: null
@@ -36,26 +38,31 @@ export default class AddArtists extends React.Component<props, state> {
 	}
 
 	updateSelected() {
-		this.setState({selected: spotifyStore.getArtists()})
+		this.setState({selected: this.props.store.get()})
 	}
 
-	addArtistByIndex(i: number) {
+	addByIndex(i: number) {
 		if (this.state.selected.length >= 5) {
-			this.setState({error: "Only 5 artists allowed"})
+			this.setState({error: `Only 5 ${this.props.type}s allowed`})
 			return
 		}
-		spotifyActions.addArtist(this.state.searchResults[i])
+		this.props.actions.add(this.state.searchResults[i])
 	}
 
-	removeArtistByIndex(i: number) {
-		spotifyActions.removeArtistByIndex(i)
-	}
-
-	handleSearch(json: SpotifyItem[]) {
-		const results = []
+	handleSearch(json: SpotifyItemJSON[]) {
+		const results: SpotifyItem[] = []
 		if (json.length > 0) {
 			for (let i = 0; i < json.length; i++) {
-				results.push(new SpotifyItem(json[i]))
+				const item = new SpotifyItem(json[i])
+				let original = true
+				for (let j = 0; j < results.length; j++) {
+					if (results[j].name == item.name) {
+						original = false
+					}
+				}
+				if (original) {
+					results.push(item)
+				}
 			}
 			this.setState({selectedIndex: -1})
 			this.setState({searchResults: results})
@@ -67,13 +74,13 @@ export default class AddArtists extends React.Component<props, state> {
 			case 13: {
 				e.preventDefault()
 				const i = this.state.selectedIndex
-				const artist = this.state.searchResults[i]
-				if (artist && i > -1) {
+				const item = this.state.searchResults[i]
+				if (item && i > -1) {
 					if (this.state.selected.length >= 5) {
-						this.setState({error: "Only 5 artists allowed"})
+						this.setState({error: `Only 5 ${this.props.type}s allowed`})
 						break
 					}
-					spotifyActions.addArtist(artist)
+					this.props.actions.add(item)
 				}
 				break
 			}
@@ -101,30 +108,34 @@ export default class AddArtists extends React.Component<props, state> {
 	}
 
 	componentWillMount() {
-		spotifyStore.on("change", this.updateSelected.bind(this))
+		this.props.store.on("change", this.updateSelected.bind(this))
 	}
 
 	render() {
 		return (
-			<div>
+			<section className={this.props.className}>
+				<h2>Add {this.props.type}s</h2>
 				<MusicSearch 
-					type="artist"
+					type={this.props.type}
 					delay={200}
 					handler={this.handleSearch.bind(this)}
 					keydown={this.handleSearchKeyDown.bind(this)}
 					error={this.handleSearchError.bind(this)}
 				/>
 				{this.state.error ? <span>{this.state.error}</span> : null}
-				<SearchResults
+				<SpotifyList
 					selected={this.state.selectedIndex}
 					items={this.state.searchResults}
-					add={this.addArtistByIndex.bind(this)}
+					onItemClick={this.addByIndex.bind(this)}
 				/>
-				<SelectedItems
+				<SpotifyList
+					selected={null}
 					items={this.state.selected}
-					remove={this.removeArtistByIndex.bind(this)}
+					onItemClick={this.props.actions.removeByIndex}
 				/>
-			</div>
+				{this.props.back ? <button onClick={this.props.back}>Back</button> : null}
+				<button onClick={this.props.next}>Next</button>
+			</section>
 		)
 	}
 }

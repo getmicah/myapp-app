@@ -2,10 +2,12 @@ import * as React from "react"
 
 import { SpotifyItem } from "../models/SpotifyModel"
 
+import SpotifyListItem from "./SpotifyListItem"
+
 interface props {
 	selected: number
 	items: SpotifyItem[]
-	add: any
+	onItemClick: any
 }
 
 const SearchResults: React.StatelessComponent<props> = (props) => {
@@ -13,11 +15,12 @@ const SearchResults: React.StatelessComponent<props> = (props) => {
 		<ul>
 			{props.items.map((item, i) => {
 				return (
-					<li 
+					<SpotifyListItem 
 						key={i}
-						onClick={() => props.add(i)}
-						className={props.selected == i ? "selected" : null}
-					>{item.name}</li>
+						item={item}
+						selected={i == props.selected}
+						onClick={() => props.onItemClick(i)}
+					/>
 				)
 			})}
 		</ul>

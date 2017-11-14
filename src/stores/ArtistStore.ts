@@ -12,7 +12,7 @@ class SpotifyStore extends EventEmitter {
 		this.artists = []
 	}
 
-	getArtists(): SpotifyItem[] {
+	get(): SpotifyItem[] {
 		return this.artists
 	}
 

@@ -3,42 +3,95 @@ import * as React from "react"
 import viewStore from "../stores/ViewStore"
 import * as viewActions from "../actions/ViewActions"
 import { SpotifyItem } from "../models/SpotifyModel"
-import spotifyStore from "../stores/SpotifyStore"
+import artistStore from "../stores/ArtistStore"
+import * as artistActions from "../actions/ArtistActions"
+import trackStore from "../stores/trackStore"
+import * as trackActions from "../actions/TrackActions"
 
-import AddArtists from "./AddArtists"
+import Section from "./Section"
 
 interface state {
-	selectedArtists: SpotifyItem[]
+	artists: SpotifyItem[]
+	tracks: SpotifyItem[]
 	showArtists: boolean
+	showTracks: boolean
 }
 
 export default class UserView extends React.Component<null, state> {
 	constructor() {
 		super(null)
 		this.state = {
-			selectedArtists: spotifyStore.getArtists(),
-			showArtists: viewStore.showArtists()
+			artists: artistStore.get(),
+			tracks: trackStore.get(),
+			showArtists: viewStore.getArtists(),
+			showTracks: viewStore.getTracks()
 		}
 	}
 
-	updateSelectedArtists() {
-		this.setState({selectedArtists: spotifyStore.getArtists()})
+	updateArtists() {
+		this.setState({
+			artists: artistStore.get()
+		})
 	}
 
-	componentWillMount() {
-		spotifyStore.on("change", this.updateSelectedArtists.bind(this))
+	updateTracks() {
+		this.setState({
+			tracks: trackStore.get()
+		})
+	}
+
+	updateView() {
+		this.setState({showArtists: viewStore.getArtists()})
+		this.setState({showTracks: viewStore.getTracks()})
 	}
 
 	handleArtistsNext() {
-		viewActions.hideArtists()
+		if (this.state.artists.length > 0) {
+			viewActions.hideArtists()
+			setTimeout(viewActions.showTracks, 500);
+		} else {
+			alert("Add a least one artist")
+		}
+	}
+
+	handleTracksNext() {
+		if (this.state.tracks.length > 0) {
+			viewActions.hideTracks()
+		} else {
+			alert("Add a least one track")
+		}
+	}
+
+	handleTracksBack() {
+		viewActions.hideTracks()
+		setTimeout(viewActions.showTracks, 500);
+	}
+
+	componentWillMount() {
+		artistStore.on("change", this.updateArtists.bind(this))
+		viewStore.on("change", this.updateView.bind(this))
 	}
 
 	render() {
+		console.log(this.state.artists)
 		return (
 			<div>
-				{this.state.showArtists ? 
-					<AddArtists next={this.handleArtistsNext.bind(this)} /> 
-				: null}
+				<Section
+					className={this.state.showArtists ? null : "hidden"}
+					type="artist"
+					store={artistStore}
+					actions={artistActions}
+					next={this.handleArtistsNext.bind(this)}
+					back={null}
+				/>
+				<Section
+					className={this.state.showTracks ? null : "hidden"}
+					type="track"
+					store={trackStore}
+					actions={trackActions}
+					next={this.handleTracksNext.bind(this)}
+					back={this.handleTracksBack.bind(this)}
+				/>
 			</div>
 		)
 	}

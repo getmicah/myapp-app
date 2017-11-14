@@ -2,15 +2,10 @@ import * as React from "react"
 
 import Logout from "./Logout"
 
-interface props {
-	authenticated: boolean
-}
-
-const Header: React.StatelessComponent<props> = (props) => {
+const Header: React.StatelessComponent<null> = (props) => {
 	return (
 		<header>
 			<h1>myapp</h1>
-			{props.authenticated ? <Logout /> : null}
 		</header>
 	)
 }

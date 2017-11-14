@@ -6,11 +6,28 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>webapp</title>
 	<style>
-		main {
-			transition: opacity 300ms ease;
+		main, section {
+			transition: opacity 200ms ease;
 		}
 		main.hidden {
 			opacity: 0;
+		}
+		section {
+			position: absolute;
+			width: 100%;
+		}
+		section.hidden {
+			transition: opacity 500ms ease;
+			z-index: -10;
+			opacity: 0;
+		}
+		input {
+			width: 100%;
+			border: none;
+			font-size: 2em;
+		}
+		input:focus {
+			outline: none;
 		}
 		li.selected {
 			color: red;

@@ -16,14 +16,14 @@ interface state {
 }
 
 export default class MusicSearch extends React.Component<props, state> {
-	placeholder: string
+	placeholderText: string
 
 	constructor(props: props) {
 		super(props)
 		this.state = {
 			value: ""
 		}
-		this.placeholder = `Search for ${props.type} or insert "spotify:${props.type}:uri"`
+		this.placeholderText = `Search for ${props.type} or insert "spotify:${props.type}:uri"`
 		this.fetchSearch = debounce(this.fetchSearch.bind(this), this.props.delay, null)
 	}
 
@@ -67,16 +67,22 @@ export default class MusicSearch extends React.Component<props, state> {
 			})
 	}
 
-	handleChange(e: React.FormEvent<HTMLInputElement>) {
-		const value = e.currentTarget.value
+	handleNewQuery() {
 		const uriPrefix = `spotify:${this.props.type}:`
-		if (value.substring(0,uriPrefix.length) == uriPrefix) {
-			const id = value.substring(uriPrefix.length, value.length)
+		const query = this.state.value
+		if (query.substring(0,uriPrefix.length) == uriPrefix) {
+			const id = query.substring(uriPrefix.length, query.length)
 			this.fetchID(id, this.props.type)
 			return
-		} else if (value.length > 1) {
-			this.fetchSearch(value)
+		} else if (query.length > 1) {
+			this.fetchSearch(query)
 		}
+	}
+
+	handleChange(e: React.FormEvent<HTMLInputElement>) {
+		const value = e.currentTarget.value
+		this.setState({value: value}, this.handleNewQuery.bind(this))
+		
 	}
 
 	render() {
@@ -85,7 +91,8 @@ export default class MusicSearch extends React.Component<props, state> {
 				type="text"
 				onChange={this.handleChange.bind(this)}
 				onKeyDown={this.props.keydown}
-				placeholder={this.placeholder}
+				placeholder={this.placeholderText}
+				value={this.state.value}
 			/>
 		)
 	}
