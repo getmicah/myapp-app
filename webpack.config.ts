@@ -35,9 +35,8 @@ module.exports = {
 		"react": "React",
 		"react-dom": "ReactDOM",
 		"react-router-dom": "ReactRouterDOM",
-		"js-cookie": "Cookies",
-		"moment": "moment",
-		"flux": "Flux"
+		"flux": "Flux",
+		"moment": "moment"
 	},
 	
 	devServer: {
@@ -45,4 +44,4 @@ module.exports = {
 		historyApiFallback: true,
 		port: 8080
 	}
-};
+}

@@ -1,34 +1,34 @@
 import * as React from "react"
 
 import config from "../utils/config"
-import userStore from "../stores/UserStore"
-import { User } from "../models/UserModel"
+import { AuthJSON } from "../models/AuthModel"
+import authStore from "../stores/AuthStore"
+import * as authActions from "../actions/AuthActions"
 
-import Home from "./Home"
-import Feed from "./Feed"
+import Header from "./Header"
+import UserView from "./UserView"
+import Login from "./Login"
 
 interface state {
-	user: User
-	stations: string[]
+	authenticated: boolean
+	error: string
 }
 
 export default class Main extends React.Component<null, state> {
 	constructor() {
 		super(null)
 		this.state = {
-			user: userStore.getUser(),
-			stations: null
+			authenticated: authStore.getAuthentication(),
+			error: null
 		}
 	}
 
-	updateAccessToken() {
-		this.setState({
-			user: userStore.getUser()
-		})
+	updateAuth() {
+		this.setState({authenticated: authStore.getAuthentication()})
 	}
 
-	fetchNewStations() {
-		fetch(`${config.apiURL}/station?index=0&count=5`, {
+	fetchAuth() {
+		fetch(`${config.apiURL}/auth`, {
 			method: "GET",
 			credentials: "include"
 		})
@@ -38,24 +38,26 @@ export default class Main extends React.Component<null, state> {
 				}
 				return res.json()
 			})
-			.then((json) => {
-				this.setState({
-					stations: json.stations
-				})
-			}).catch((e) => {
-				console.log(e)
+			.then(() => {
+				authActions.resolve()
+			}).catch(() => {
+				authActions.reject()
 			})
 	}
 
 	componentWillMount() {
-		userStore.on("change", this.updateAccessToken.bind(this))
-		this.fetchNewStations()
+		authStore.on("change", this.updateAuth.bind(this))
+		if (!this.state.authenticated) {
+			this.fetchAuth()
+		}
 	}
 	
 	render() {
-		return(
+		return (
 			<main>
-				{this.state.user ? <Feed user={this.state.user}/> : <Home/>}
+				<Header authenticated={this.state.authenticated}/>
+				{this.state.error ? this.state.error : null}
+				{this.state.authenticated ? <UserView /> : <Login />}
 			</main>
 		)
 	}
