@@ -28,6 +28,7 @@ class SpotifyStore extends EventEmitter {
 			if (this.artists[i].id === artist.id) {
 				this.artists = this.artists.splice(i, 1)
 				this.emit("change")
+				return
 			}
 		}
 	}

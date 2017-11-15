@@ -11,7 +11,8 @@ module.exports = {
 	module: {
 		rules: [
 			{ test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-			{ test: /\.scss$/, loader: "style-loader!css-loader!autoprefixer-loader!sass-loader" }
+			{ test: /\.scss$/, loader: "style-loader!css-loader!autoprefixer-loader!sass-loader" },
+			{ test: /\.css$/, loader: "style-loader!css-loader!autoprefixer-loader" }
 		]
 	},
 	devServer: {

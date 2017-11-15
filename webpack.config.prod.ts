@@ -24,6 +24,13 @@ module.exports = {
 					fallback: "style-loader",
 					use: ["css-loader", "autoprefixer-loader", "sass-loader"]
 				})
+			},
+			{
+				test: /\.css$/,
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: ["css-loader", "autoprefixer-loader"]
+				})
 			}
 		]
 	},

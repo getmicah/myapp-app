@@ -2,7 +2,7 @@
 .DS_Store
 .vscode
 node_modules
-index.dev.html
+yarn-error.log
 
 # Binaries for programs and plugins
 *.exe

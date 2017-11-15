@@ -23,3 +23,15 @@ export function showTracks() {
 		type: "SHOW_TRACKS"
 	})
 }
+
+export function hideSeeds() {
+	dispatcher.dispatch({
+		type: "HIDE_SEEDS"
+	})
+}
+
+export function showSeeds() {
+	dispatcher.dispatch({
+		type: "SHOW_SEEDS"
+	})
+}

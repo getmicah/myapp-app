@@ -1,13 +1,14 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import Main from "./components/Main"
 import Header from "./components/Header"
+import Main from "./components/Main"
 import "./stylesheets/normalize.scss"
+import "./stylesheets/main.scss"
 
 const Root: React.StatelessComponent<null> = () => {
 	return (
-		<div>
+		<div id="app-container">
 			<Header />
 			<Main />
 		</div>

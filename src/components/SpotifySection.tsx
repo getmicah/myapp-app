@@ -13,6 +13,7 @@ interface KeyboardEvent {
 export interface props {
 	className: string
 	type: "artist" | "track"
+	max: number
 	store: any
 	actions: any
 	next: any
@@ -26,7 +27,7 @@ export interface state {
 	error: string
 }
 
-export default class Section extends React.Component<props, state> {
+export default class SpotifySection extends React.Component<props, state> {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -42,8 +43,8 @@ export default class Section extends React.Component<props, state> {
 	}
 
 	addByIndex(i: number) {
-		if (this.state.selected.length >= 5) {
-			this.setState({error: `Only 5 ${this.props.type}s allowed`})
+		if (this.state.selected.length >= this.props.max) {
+			this.setState({error: `Only ${this.props.max} ${this.props.type}s allowed`})
 			return
 		}
 		this.props.actions.add(this.state.searchResults[i])
@@ -76,8 +77,8 @@ export default class Section extends React.Component<props, state> {
 				const i = this.state.selectedIndex
 				const item = this.state.searchResults[i]
 				if (item && i > -1) {
-					if (this.state.selected.length >= 5) {
-						this.setState({error: `Only 5 ${this.props.type}s allowed`})
+					if (this.state.selected.length >= this.props.max) {
+						this.setState({error: `Only ${this.props.max} ${this.props.type}s allowed`})
 						break
 					}
 					this.props.actions.add(item)

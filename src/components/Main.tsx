@@ -5,10 +5,8 @@ import { AuthJSON } from "../models/AuthModel"
 import authStore from "../stores/AuthStore"
 import * as authActions from "../actions/AuthActions"
 
-import Header from "./Header"
 import App from "./App"
 import Login from "./Login"
-import "../stylesheets/main.scss"
 
 interface props {}
 interface state {
@@ -60,10 +58,12 @@ export default class Main extends React.Component<props, state> {
 	
 	render() {
 		return (
-			<main className={this.state.loaded ? null : "hidden"}>
-				{this.state.error ? this.state.error : null}
-				{this.state.authenticated ? <App /> : <Login />}
-			</main>
+			<div>
+				<main className={this.state.loaded ? null : "hidden"}>
+					{this.state.authenticated ? <App /> : <Login />}
+					{this.state.error ? <span className="error">this.state.error</span> : null}
+				</main>
+			</div>
 		)
 	}
 }

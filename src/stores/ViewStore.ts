@@ -6,11 +6,13 @@ import dispatcher from "../utils/dispatcher"
 class ViewStore extends EventEmitter {
 	artists: boolean
 	tracks: boolean
+	seeds: boolean
 
 	constructor() {
 		super()
 		this.artists = true
 		this.tracks = false
+		this.seeds = false
 	}
 
 	getArtists(): boolean {
@@ -21,6 +23,10 @@ class ViewStore extends EventEmitter {
 		return this.tracks
 	}
 
+	getSeeds(): boolean {
+		return this.seeds
+	}
+
 	setArtists(value: boolean): void {
 		this.artists = value
 		this.emit("change")
@@ -28,6 +34,11 @@ class ViewStore extends EventEmitter {
 
 	setTracks(value: boolean): void {
 		this.tracks = value
+		this.emit("change")
+	}
+
+	setSeeds(value: boolean): void {
+		this.seeds = value
 		this.emit("change")
 	}
 
@@ -44,6 +55,12 @@ class ViewStore extends EventEmitter {
 				break
 			case "SHOW_TRACKS":
 				this.setTracks(true)
+				break
+			case "HIDE_SEEDS":
+				this.setSeeds(false)
+				break
+			case "SHOW_SEEDS":
+				this.setSeeds(true)
 				break
 		}
 	}

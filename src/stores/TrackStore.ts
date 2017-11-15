@@ -28,6 +28,7 @@ class TrackStore extends EventEmitter {
 			if (this.tracks[i].id === track.id) {
 				this.tracks = this.tracks.splice(i, 1)
 				this.emit("change")
+				return
 			}
 		}
 	}

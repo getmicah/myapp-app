@@ -1,3 +1,6 @@
+#app-container {
+	padding: 0 2em;
+}
 main, section {
 	transition: opacity 200ms ease;
 }
@@ -6,7 +9,6 @@ main.hidden {
 }
 section {
 	position: absolute;
-	width: 100%;
 }
 section.hidden {
 	transition: opacity 500ms ease;
