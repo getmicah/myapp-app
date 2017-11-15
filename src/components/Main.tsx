@@ -8,6 +8,7 @@ import * as authActions from "../actions/AuthActions"
 import Header from "./Header"
 import App from "./App"
 import Login from "./Login"
+import "../stylesheets/main.scss"
 
 interface props {}
 interface state {

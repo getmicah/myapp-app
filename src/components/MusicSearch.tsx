@@ -62,8 +62,12 @@ export default class MusicSearch extends React.Component<props, state> {
 			.then((json) => {
 				this.props.error(null)
 				this.props.handler(json[`${this.props.type}s`].items)
-			}).catch((e) => {
-				this.props.error(e)
+			}).catch((e: ErrorConstructor) => {
+				if (e.toString()) {
+					this.props.error(e.toString)
+				} else {
+					this.props.error(e+"")
+				}
 			})
 	}
 

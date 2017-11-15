@@ -1,6 +1,7 @@
 const webpack = require("webpack")
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
 	entry: ["whatwg-fetch", "./src/index.tsx"],
@@ -32,7 +33,15 @@ module.exports = {
 		}),
 		new UglifyJSPlugin(),
 		new ExtractTextPlugin({
-			filename: "style.css"
+			filename: "style.min.css"
+		}),
+		new OptimizeCssAssetsPlugin({
+			assetNameRegExp: /\.min\.css$/,
+			cssProcessorOptions: {
+				discardComments: {
+					removeAll: true
+				}
+			}
 		})
 	],
 	externals: {
