@@ -1,20 +1,133 @@
+@import "colors";
+
 #app-container {
 	padding: 0 2em;
+	font-family: 'Open Sans', sans-serif;
+	color: $color-grey-darker;
 }
-main, section {
+main {
 	transition: opacity 200ms ease;
+	&.hidden {
+		opacity: 0;
+	}
 }
-main.hidden {
-	opacity: 0;
+.wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
-section {
-	position: absolute;
+#user-app {
+	margin-top: 4em;
 }
-section.hidden {
-	transition: opacity 500ms ease;
-	z-index: -10;
-	opacity: 0;
+#spotify-seeds {
+	margin-bottom: 2em;
+	position: relative;
+	> div:first-child > span {
+		display: block;
+		margin-bottom: 0.5em;
+		font-size: 2em;
+		font-weight: 700;
+	}
+	> div {
+		flex: 0 0 20em;
+		> div {
+			padding-right: 2em;
+		}
+	}
+	input[type=text] {
+		width: 100%;
+		height: 2em;
+		margin-bottom: 0.5em;
+		border: none;
+		font-size: 1.2em;
+		&:focus {
+			outline: none;
+		}
+		&::placeholder {
+			color: $color-grey-light;
+			font-weight: 300;
+		}
+	}
+	label {
+		margin: 0 1em 0 0.5em;
+	}
+	.search-results {
+		position: absolute;
+		z-index: 10;
+		top: 6em;
+		width: 18em;
+		margin: 0 -1em;
+		background: white;
+		list-style: none;
+		padding-left: 1em;
+		li {
+			padding: 1em 0;
+			&.selected {
+				color: $color-green;
+			}
+			&:hover {
+				cursor: pointer;
+				color: $color-green;
+			}
+		}
+	}
+	.selected-items {
+		> span {
+			font-size: 1.2em;
+			font-weight: 700;
+		}
+		> ul {
+			list-style: none;
+			margin: 0.2em 0 0.6em 0;
+			padding-left: 0;
+			> li {
+				padding: 0.5em 0;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+	}
 }
-li.selected {
-	color: red;
+#tuning-seeds {
+	> div {
+		flex: 0 0 20em;
+		> div {
+			padding: 1em 4em 1em 0;
+		}
+	}
+}
+.rc-slider {
+	&-name {
+		display: block;
+		margin-bottom: 0.5em;
+		font-weight: 700;
+		font-size: 1.2em;
+	}
+	&-descriptors {
+		display: flex;
+		justify-content: space-between;
+	}
+	>.rc-slider-rail {
+		background-color: $color-grey-light;
+	}
+	>.rc-slider-track {
+		background-color: $color-green;
+	}
+	>.rc-slider-handle {
+		background-color: $color-green;
+		border: none;
+		&:active {
+			box-shadow: none;
+		}
+	}
+	&.disabled {
+		>.rc-slider-track {
+			background-color: $color-grey-light;
+		}
+		>.rc-slider-handle {
+			background-color: $color-grey-dark;
+			border: none;
+		}
+	}
 }

@@ -4,7 +4,7 @@ import 'rc-slider/assets/index.css';
 
 interface props {
 	name: string
-	descriptor: [string, string]
+	descriptors: [string, string]
 	value: number
 	max: number
 	min: number
@@ -12,20 +12,24 @@ interface props {
 	onChange: any
 }
 
-const SeedSlider: React.StatelessComponent<props> = (props) => {
+const TuningSlider: React.StatelessComponent<props> = (props) => {
 	return (
-		<div className={`seed-slider ${props.value == null ? "disabled" : null}`}>
-			<h4>{props.name}</h4>
+		<div>
+			<span className="rc-slider-name">{props.name}</span>
 			<Slider
+				className={`${props.value == null ? "disabled" : null}`}
 				value={props.value == null ? (props.max+props.min)/2 : props.value}
 				max={props.max}
 				min={props.min}
 				step={props.step}
 				onChange={props.onChange}
 			/>
-			<span>{props.descriptor[0]} - {props.descriptor[1]}</span>
+			<div className="rc-slider-descriptors">
+				<span>{props.descriptors[0]}</span>
+				<span>{props.descriptors[1]}</span>
+			</div>
 		</div>
 	)
 }
 
-export default SeedSlider
+export default TuningSlider

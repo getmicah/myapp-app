@@ -13,7 +13,7 @@ class Artist {
 export interface SpotifyItemJSON {
 	"id": string
 	"name": string
-	"artists": ArtistJSON[]
+	"artists"?: ArtistJSON[]
 }
 
 export class SpotifyItem {

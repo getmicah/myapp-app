@@ -4,7 +4,7 @@ import config from "../utils/config"
 
 const Logout: React.StatelessComponent<null> = () => {
 	return (
-		<a href={`${config.apiURL}/auth/logout`}>Logout</a>
+		<a className="logout" href={`${config.apiURL}/auth/logout`}>Logout</a>
 	)
 }
 

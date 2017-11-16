@@ -5,20 +5,21 @@ import { SpotifyItem } from "../models/SpotifyModel"
 import SpotifyListItem from "./SpotifyListItem"
 
 interface props {
-	selected: number
+	className: string
+	index: number
 	items: SpotifyItem[]
 	onItemClick: any
 }
 
 const SearchResults: React.StatelessComponent<props> = (props) => {
 	return (
-		<ul>
+		<ul className={props.className}>
 			{props.items.map((item, i) => {
 				return (
 					<SpotifyListItem 
 						key={i}
 						item={item}
-						selected={i == props.selected}
+						selected={i == props.index}
 						onClick={() => props.onItemClick(i)}
 					/>
 				)
