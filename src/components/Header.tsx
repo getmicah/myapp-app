@@ -5,7 +5,7 @@ import Logout from "./Logout"
 const Header: React.StatelessComponent<null> = () => {
 	return (
 		<header>
-			<h1>myapp</h1>
+			<h1>spotify-recs</h1>
 		</header>
 	)
 }

@@ -1,8 +1,8 @@
 {
-  "name": "webapp",
+  "name": "spotify-recs-app",
   "version": "1.0.0",
   "main": "src/index.js",
-  "repository": "git@github.com:getmicah/webapp.git",
+  "repository": "git@github.com:getmicah/spotify-recs-app.git",
   "author": "Micah Cowell <micahcowell@gmail.com>",
   "license": "MIT",
   "scripts": {

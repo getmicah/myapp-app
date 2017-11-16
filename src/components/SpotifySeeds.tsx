@@ -53,12 +53,14 @@ export default class SpotifySeeds extends React.Component<props, state> {
 			return
 		}
 		this.props.actions.add(this.state.searchResults[i])
+		this.clearSearch()
 	}
 
 	clearSearch() {
 		this.setState({
 			searchValue: "",
-			searchResults: []
+			searchResults: [],
+			selectedIndex: -1
 		})
 	}
 
@@ -102,19 +104,7 @@ export default class SpotifySeeds extends React.Component<props, state> {
 		switch(e.keyCode) {
 			case 13: {
 				e.preventDefault()
-				const i = this.state.selectedIndex
-				const item = this.state.searchResults[i]
-				if (item && i > -1) {
-					let length = this.props.tracks.length
-					if (this.props.type === "artist") {
-						length = this.props.artists.length
-					}
-					if (length >= this.props.max) {
-						alert(`Only ${this.props.max} ${this.props.type}s allowed`)
-						break
-					}
-					this.props.actions.add(item)
-				}
+				this.addByIndex(this.state.selectedIndex)
 				break
 			}
 			case 27 : {

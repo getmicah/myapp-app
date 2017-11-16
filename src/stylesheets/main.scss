@@ -84,6 +84,8 @@ main {
 				padding: 0.5em 0;
 				&:hover {
 					cursor: pointer;
+					color: #ED1F32;
+					text-decoration: line-through;
 				}
 			}
 		}
