@@ -131,3 +131,14 @@ main {
 		}
 	}
 }
+.modal {
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0; 
+	z-index: 100;
+	height: 100vh;
+	width: 100%;
+	background-color: $color-grey-darker;
+	display: flex;
+	justify-content: center;
+	vertical-align: middle;
+}

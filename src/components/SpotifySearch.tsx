@@ -30,14 +30,12 @@ export default class SpotifySearch extends React.Component<props, null> {
 				})
 				.catch((e) => console.log(e))
 			return
-		} else if (query.length > 1) {
+		} else {
 			api.getSearch(query, this.props.type)
 				.then((json) => {
 					this.props.results(json[`${this.props.type}s`].items)
 				})
 				.catch((e) => console.log(e))
-		} else {
-			this.props.clearResults()
 		}
 	}
 

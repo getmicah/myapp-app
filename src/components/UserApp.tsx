@@ -8,9 +8,10 @@ import seedStore from "../stores/SeedStore"
 import * as artistActions from "../actions/ArtistActions"
 import * as trackActions from "../actions/TrackActions"
 
+import Logout from "./Logout"
 import SpotifySeeds from "./SpotifySeeds"
 import TuningSeeds from "./TuningSeeds"
-import Logout from "./Logout"
+import Modal from "./Modal"
 
 interface props {}
 interface state {
@@ -89,6 +90,10 @@ export default class UserApp extends React.Component<props, state> {
 		}
 	}
 
+	handleCloseModal() {
+		this.setState({playlistJSON: null})
+	}
+
 	handleCreateSubmit() {
 		if (this.state.playlistJSON) {
 			this.createPlaylist()
@@ -125,12 +130,15 @@ export default class UserApp extends React.Component<props, state> {
 						name="load"
 						onClick={this.handleLoadSubmit.bind(this)}
 					>Get Recomendations</button>
+				</div>
+				<Modal show={this.state.playlistJSON}>
 					<button
 						name="create"
 						onClick={this.handleCreateSubmit.bind(this)}
 						disabled={!this.state.playlistJSON}
 					>Create Playlist</button>
-				</div>
+					<button onClick={this.handleCloseModal.bind(this)}>Close Modal</button>
+				</Modal>
 			</div>
 		)
 	}

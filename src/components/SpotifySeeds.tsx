@@ -88,7 +88,14 @@ export default class SpotifySeeds extends React.Component<props, state> {
 
 	handleSearchChange(e: React.FormEvent<HTMLInputElement>, callback: any) {
 		const value = e.currentTarget.value
-		this.setState({searchValue: value}, callback)
+		this.setState({searchValue: value}, () => {
+			if (value.length > 0) {
+				callback()
+			} else {
+				this.setState({selectedIndex: 0})
+				this.clearSearchResults()
+			}
+		})
 	}
 
 	handleSearchKeydown(e: KeyboardEvent) {
