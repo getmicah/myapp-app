@@ -25,7 +25,6 @@ interface state {
 	playlistJSON: any,
 	buttonText: string,
 	buttonHandler: any,
-	buttonDisabled: boolean
 }
 
 export default class UserApp extends React.Component<props, state> {
@@ -41,8 +40,7 @@ export default class UserApp extends React.Component<props, state> {
 			searchType: "artist",
 			playlistJSON: null,
 			buttonText: "Get Recomendations",
-			buttonHandler: this.handleLoadClick.bind(this),
-			buttonDisabled: false
+			buttonHandler: this.handleLoadClick.bind(this)
 		}
 	}
 
@@ -77,21 +75,29 @@ export default class UserApp extends React.Component<props, state> {
 				})
 			})
 			.catch((err) => {
-				console.log(err)
+				alert("Oops. You're selections were to diverse for Spotify, try using more similair artists.")
+				this.setState({
+					buttonText: "Get Recomendations"
+				})
 			})
 	}
 
 	addPlaylist() {
 		api.postPlaylist(this.state.playlistJSON)
 			.then((json) => {
+				alert("Done! Open Spotify to see your new playlist")
 				this.setState({
-					buttonText: "Done!",
-					buttonHandler: null,
-					buttonDisabled: true
+					buttonText: "Get Recomendations",
+					buttonHandler: this.handleLoadClick.bind(this)
 				})
 			})
 			.catch((err) => {
 				console.log(err)
+				alert("Something went wrong... Open the console to find out more")
+				this.setState({
+					buttonText: "Get Recomendations",
+					buttonHandler: this.handleLoadClick.bind(this)
+				})
 			})
 	}
 
@@ -133,7 +139,6 @@ export default class UserApp extends React.Component<props, state> {
 					<MainButton
 						text={this.state.buttonText}
 						handler={this.state.buttonHandler}
-						disabled={this.state.buttonDisabled}
 					/>
 				</div>
 			</div>

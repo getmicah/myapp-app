@@ -82,7 +82,6 @@ export default class SpotifySeeds extends React.Component<props, state> {
 	handleSearchResults(json: SpotifyItemJSON[]) {
 		const results: SpotifyItem[] = []
 		if (json.length > 0) {
-			console.log(json)
 			for (let i = 0; i < json.length; i++) {
 				const item = new SpotifyItem(json[i])
 				let original = true

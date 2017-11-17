@@ -3,7 +3,6 @@ import * as React from "react"
 interface props {
 	text: string
 	handler: any
-	disabled: boolean
 }
 
 const MainButton: React.StatelessComponent<props> = (props) => {
@@ -12,7 +11,6 @@ const MainButton: React.StatelessComponent<props> = (props) => {
 			<button
 				className="main-button"
 				onClick={props.handler}
-				disabled={props.disabled}
 			>{props.text}</button>
 		</div>
 	)
