@@ -25,6 +25,7 @@ interface state {
 	playlistJSON: any,
 	buttonText: string,
 	buttonHandler: any,
+	buttonDisabled: boolean
 }
 
 export default class UserApp extends React.Component<props, state> {
@@ -40,7 +41,8 @@ export default class UserApp extends React.Component<props, state> {
 			searchType: "artist",
 			playlistJSON: null,
 			buttonText: "Get Recomendations",
-			buttonHandler: this.handleLoadClick.bind(this)
+			buttonHandler: this.handleLoadClick.bind(this),
+			buttonDisabled: false
 		}
 	}
 
@@ -71,24 +73,32 @@ export default class UserApp extends React.Component<props, state> {
 				this.setState({
 					playlistJSON: json,
 					buttonText: "Add Playlist to Spotify",
-					buttonHandler: this.addPlaylist.bind(this)
+					buttonHandler: this.addPlaylist.bind(this),
+					buttonDisabled: false
 				})
 			})
 			.catch((err) => {
 				alert("Oops. You're selections were to diverse for Spotify, try using more similair artists.")
 				this.setState({
-					buttonText: "Get Recomendations"
+					buttonText: "Get Recomendations",
+					buttonDisabled: false
 				})
 			})
 	}
 
 	addPlaylist() {
+		this.setState({
+			buttonText: "Adding...",
+			buttonHandler: null,
+			buttonDisabled: true
+		})
 		api.postPlaylist(this.state.playlistJSON)
 			.then((json) => {
 				alert("Done! Open Spotify to see your new playlist")
 				this.setState({
 					buttonText: "Get Recomendations",
-					buttonHandler: this.handleLoadClick.bind(this)
+					buttonHandler: this.handleLoadClick.bind(this),
+					buttonDisabled: false
 				})
 			})
 			.catch((err) => {
@@ -96,14 +106,19 @@ export default class UserApp extends React.Component<props, state> {
 				alert("Something went wrong... Open the console to find out more")
 				this.setState({
 					buttonText: "Get Recomendations",
-					buttonHandler: this.handleLoadClick.bind(this)
+					buttonHandler: this.handleLoadClick.bind(this),
+					buttonDisabled: false
 				})
 			})
 	}
 
 	handleLoadClick() {
 		if (this.state.artists.length > 0 || this.state.tracks.length > 0) {
-			this.setState({buttonText: "Loading..."})
+			this.setState({
+				buttonText: "Loading...",
+				buttonHandler: null,
+				buttonDisabled: true
+			})
 			this.loadRecs()
 		} else {
 			alert("Please select at least one artist or track")
@@ -139,6 +154,7 @@ export default class UserApp extends React.Component<props, state> {
 					<MainButton
 						text={this.state.buttonText}
 						handler={this.state.buttonHandler}
+						disabled={this.state.buttonDisabled}
 					/>
 				</div>
 			</div>
