@@ -6,12 +6,12 @@ import SpotifyListItem from "./SpotifyListItem"
 
 interface props {
 	className: string
-	index: number
 	items: SpotifyItem[]
+	index: number
 	onItemClick: any
 }
 
-const SearchResults: React.StatelessComponent<props> = (props) => {
+const SpotifyIndexList: React.StatelessComponent<props> = (props) => {
 	return (
 		<ul className={props.className}>
 			{props.items.map((item, i) => {
@@ -28,4 +28,4 @@ const SearchResults: React.StatelessComponent<props> = (props) => {
 	)
 }
 
-export default SearchResults
+export default SpotifyIndexList

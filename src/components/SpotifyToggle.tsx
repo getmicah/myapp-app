@@ -5,6 +5,18 @@ interface props {
 	onChange: any
 }
 
+const onChange = (e: React.FormEvent<HTMLInputElement>, props: props) => {
+	if (e.currentTarget.value !== props.type) {
+		props.onChange()
+	}
+}
+
+const onClick = (e: React.FormEvent<HTMLLabelElement>, props: props) => {
+	if (e.currentTarget.htmlFor !== props.type) {
+		props.onChange()
+	}
+}
+
 const SpotifyToggle: React.StatelessComponent<props> = (props) => {
 	return (
 		<div>
@@ -13,17 +25,17 @@ const SpotifyToggle: React.StatelessComponent<props> = (props) => {
 				value="artist"
 				name="type"
 				checked={props.type === "artist"}
-				onChange={props.onChange}
+				onChange={(e) => onChange(e, props)}
 			/>
-			<label htmlFor="artists" onClick={props.onChange}>Artists</label>
+			<label htmlFor="artist" onClick={(e) => onClick(e, props)}>Artists</label>
 			<input
 				type="radio"
 				value="tracks"
 				name="type"
 				checked={props.type === "track"}
-				onChange={props.onChange}
+				onChange={(e) => onChange(e, props)}
 			/>
-			<label htmlFor="tracks" onClick={props.onChange}>Tracks</label>
+			<label htmlFor="track" onClick={(e) => onClick(e, props)}>Tracks</label>
 		</div>
 	)
 }

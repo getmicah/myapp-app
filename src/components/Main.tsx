@@ -6,7 +6,7 @@ import authStore from "../stores/AuthStore"
 import * as authActions from "../actions/AuthActions"
 
 import UserApp from "./UserApp"
-import Login from "./Login"
+import HomePage from "./HomePage"
 
 interface props {}
 interface state {
@@ -44,7 +44,7 @@ export default class Main extends React.Component<props, state> {
 		return (
 			<div>
 				<main className={this.state.loaded ? null : "hidden"}>
-					{this.state.authenticated ? <UserApp /> : <Login />}
+					{this.state.authenticated ? <UserApp /> : <HomePage />}
 				</main>
 			</div>
 		)

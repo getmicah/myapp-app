@@ -11,10 +11,56 @@ main {
 		opacity: 0;
 	}
 }
+header {
+	display: flex;
+	justify-content: center;
+	padding-top: 2em;
+}
+.auth-link {
+	&-container {
+		display: flex;
+		justify-content: center;
+	}
+}
 .wrapper {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+}
+#landing-page {
+	&-container{
+		display: flex;
+		justify-content: center;
+		margin: 4em;
+	}
+	&-text {
+		display: block;
+		font-size: 2em;
+		font-weight: 300;
+		line-height: 150%;
+	}
+	&-login {
+		padding: 1em;
+		background: $color-green;
+		color: white;
+		border-radius: 0.5em;
+		border: none;
+		outline: none;
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+		transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+		-webkit-appearance: none !important;
+		&-container {
+			display: flex;
+			justify-content: center;
+			margin: 2em 0;
+		}
+		&:hover {
+			cursor: pointer;
+		}
+		&:active {
+			box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+		}
+	}
 }
 #user-app {
 	margin-top: 4em;
@@ -133,14 +179,28 @@ main {
 		}
 	}
 }
-.modal {
-	position: fixed;
-	top: 0; left: 0; right: 0; bottom: 0; 
-	z-index: 100;
-	height: 100vh;
-	width: 100%;
-	background-color: $color-grey-darker;
-	display: flex;
-	justify-content: center;
-	vertical-align: middle;
+.main-button {
+	padding: 1em;
+	background: $color-green;
+	color: white;
+	border-radius: 0.5em;
+	border: none;
+	outline: none;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+	-webkit-appearance: none !important;
+	&-container{
+		margin: 2em auto;
+		display: flex;
+		justify-content: center
+	}
+	&:hover {
+		cursor: pointer;
+	}
+	&:active {
+		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	}
+	&:disabled {
+		cursor: not-allowed;
+	}
 }

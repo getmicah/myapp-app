@@ -1,5 +1,6 @@
 {
-	"apiURL": "http://localhost:3000",
+	"apiURL": "https://api.micahcowell.com",
 	"appURL": "http://localhost:8080",
-	"redirectURI": "http://localhost:3000/auth/callback"
+	"redirectURI": "https://api.micahcowell.com/auth/callback",
+	"production": false
 }

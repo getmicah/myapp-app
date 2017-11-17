@@ -11,7 +11,7 @@ import * as trackActions from "../actions/TrackActions"
 import Logout from "./Logout"
 import SpotifySeeds from "./SpotifySeeds"
 import TuningSeeds from "./TuningSeeds"
-import Modal from "./Modal"
+import MainButton from "./MainButton"
 
 interface props {}
 interface state {
@@ -22,7 +22,10 @@ interface state {
 	popularity: number
 	valence: number
 	searchType: "artist" | "track",
-	playlistJSON: any
+	playlistJSON: any,
+	buttonText: string,
+	buttonHandler: any,
+	buttonDisabled: boolean
 }
 
 export default class UserApp extends React.Component<props, state> {
@@ -36,7 +39,10 @@ export default class UserApp extends React.Component<props, state> {
 			popularity: seedStore.getPopularity(),
 			valence: seedStore.getValence(),
 			searchType: "artist",
-			playlistJSON: null
+			playlistJSON: null,
+			buttonText: "Get Recomendations",
+			buttonHandler: this.handleLoadClick.bind(this),
+			buttonDisabled: false
 		}
 	}
 
@@ -64,39 +70,37 @@ export default class UserApp extends React.Component<props, state> {
 	loadRecs() {
 		api.getRec(this.state.artists, this.state.tracks, this.state.danceability, this.state.energy, this.state.popularity, this.state.valence)
 			.then((json) => {
-				console.log(json)
-				this.setState({playlistJSON: json})
+				this.setState({
+					playlistJSON: json,
+					buttonText: "Add Playlist to Spotify",
+					buttonHandler: this.addPlaylist.bind(this)
+				})
 			})
 			.catch((err) => {
 				console.log(err)
 			})
 	}
 
-	createPlaylist() {
+	addPlaylist() {
 		api.postPlaylist(this.state.playlistJSON)
 			.then((json) => {
-				console.log(json)
+				this.setState({
+					buttonText: "Done!",
+					buttonHandler: null,
+					buttonDisabled: true
+				})
 			})
 			.catch((err) => {
 				console.log(err)
 			})
 	}
 
-	handleLoadSubmit() {
+	handleLoadClick() {
 		if (this.state.artists.length > 0 || this.state.tracks.length > 0) {
+			this.setState({buttonText: "Loading..."})
 			this.loadRecs()
 		} else {
 			alert("Please select at least one artist or track")
-		}
-	}
-
-	handleCloseModal() {
-		this.setState({playlistJSON: null})
-	}
-
-	handleCreateSubmit() {
-		if (this.state.playlistJSON) {
-			this.createPlaylist()
 		}
 	}
 
@@ -126,19 +130,12 @@ export default class UserApp extends React.Component<props, state> {
 						popularity={this.state.popularity}
 						valence={this.state.valence}
 					/>
-					<button
-						name="load"
-						onClick={this.handleLoadSubmit.bind(this)}
-					>Get Recomendations</button>
+					<MainButton
+						text={this.state.buttonText}
+						handler={this.state.buttonHandler}
+						disabled={this.state.buttonDisabled}
+					/>
 				</div>
-				<Modal show={this.state.playlistJSON}>
-					<button
-						name="create"
-						onClick={this.handleCreateSubmit.bind(this)}
-						disabled={!this.state.playlistJSON}
-					>Create Playlist</button>
-					<button onClick={this.handleCloseModal.bind(this)}>Close Modal</button>
-				</Modal>
 			</div>
 		)
 	}

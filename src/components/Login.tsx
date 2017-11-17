@@ -4,7 +4,7 @@ import config from "../utils/config"
 
 const Login: React.StatelessComponent<null> = () => {
 	return (
-		<a href={`${config.apiURL}/auth/login`}>Login with Spotify</a>
+		<a className="auth-link" href={`${config.apiURL}/auth/login`}>Login with Spotify</a>
 	)
 }
 

@@ -6,7 +6,7 @@ import * as trackActions from "../actions/TrackActions"
 
 import SpotifySearch from "./SpotifySearch"
 import SpotifyToggle from "./SpotifyToggle"
-import SpotifyList from "./SpotifyList"
+import SpotifyIndexList from "./SpotifyIndexList"
 
 interface KeyboardEvent {
 	keyCode: number
@@ -33,9 +33,9 @@ export default class SpotifySeeds extends React.Component<props, state> {
 	constructor(props) {
 		super(props)
 		this.state = {
+			searchValue: "",
 			searchResults: [],
-			selectedIndex: -1,
-			searchValue: ""
+			selectedIndex: -1
 		}
 	}
 
@@ -44,6 +44,10 @@ export default class SpotifySeeds extends React.Component<props, state> {
 	}
 
 	addByIndex(i: number) {
+		if (i < 0 || i > this.state.searchResults.length) {
+			this.clearSearchIndex()
+			return
+		}
 		let length = this.props.tracks.length
 		if (this.props.type === "artist") {
 			length = this.props.artists.length
@@ -65,12 +69,20 @@ export default class SpotifySeeds extends React.Component<props, state> {
 	}
 
 	clearSearchResults() {
-		this.setState({searchResults: []})
+		this.setState({
+			searchResults: [],
+			selectedIndex: -1
+		})
+	}
+
+	clearSearchIndex() {
+		this.setState({selectedIndex: -1})
 	}
 
 	handleSearchResults(json: SpotifyItemJSON[]) {
 		const results: SpotifyItem[] = []
 		if (json.length > 0) {
+			console.log(json)
 			for (let i = 0; i < json.length; i++) {
 				const item = new SpotifyItem(json[i])
 				let original = true
@@ -94,7 +106,6 @@ export default class SpotifySeeds extends React.Component<props, state> {
 			if (value.length > 0) {
 				callback()
 			} else {
-				this.setState({selectedIndex: 0})
 				this.clearSearchResults()
 			}
 		})
@@ -131,10 +142,8 @@ export default class SpotifySeeds extends React.Component<props, state> {
 	}
 
 	handleToggleChange(e: React.FormEvent<HTMLInputElement>) {
-		if (e.currentTarget.value !== this.props.type) {
-			this.clearSearch()
-			this.props.toggle()
-		}
+		this.clearSearch()
+		this.props.toggle()
 	}
 
 	render() {
@@ -155,10 +164,10 @@ export default class SpotifySeeds extends React.Component<props, state> {
 						type={this.props.type}
 						onChange={this.handleToggleChange.bind(this)}
 					/>
-					<SpotifyList
+					<SpotifyIndexList
 						className="search-results"
-						index={this.state.selectedIndex}
 						items={this.state.searchResults}
+						index={this.state.selectedIndex}
 						onItemClick={this.addByIndex.bind(this)}
 					/>
 				</div>
@@ -166,10 +175,10 @@ export default class SpotifySeeds extends React.Component<props, state> {
 					{this.props.artists.length > 0 ?
 					<div className="selected-items">
 						<span>Artists</span>
-						<SpotifyList
+						<SpotifyIndexList
 							className={null}
-							index={null}
 							items={this.props.artists}
+							index={null}
 							onItemClick={artistActions.removeByIndex}
 						/>
 					</div>
@@ -177,10 +186,10 @@ export default class SpotifySeeds extends React.Component<props, state> {
 					{this.props.tracks.length > 0 ?
 					<div className="selected-items">
 						<span>Tracks</span>
-						<SpotifyList
+						<SpotifyIndexList
 							className={null}
-							index={null}
 							items={this.props.tracks}
+							index={null}
 							onItemClick={trackActions.removeByIndex}
 						/>
 					</div>
