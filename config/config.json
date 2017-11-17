@@ -1,6 +1,6 @@
 {
 	"apiURL": "https://api.micahcowell.com",
-	"appURL": "http://localhost:8080",
+	"appURL": "http://spotify-recs.github.io",
 	"redirectURI": "https://api.micahcowell.com/auth/callback",
 	"production": false
 }
