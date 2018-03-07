@@ -22,6 +22,8 @@ interface state {
 	popularity: number
 	valence: number
 	searchType: "artist" | "track",
+	playlistID: string,
+	playlistUsername: string,
 	playlistJSON: any,
 	buttonText: string,
 	buttonHandler: any,
@@ -39,6 +41,8 @@ export default class UserApp extends React.Component<props, state> {
 			popularity: seedStore.getPopularity(),
 			valence: seedStore.getValence(),
 			searchType: "artist",
+			playlistID: null,
+			playlistUsername: null,
 			playlistJSON: null,
 			buttonText: "Get Recomendations",
 			buttonHandler: this.handleLoadClick.bind(this),
@@ -94,10 +98,11 @@ export default class UserApp extends React.Component<props, state> {
 		})
 		api.postPlaylist(this.state.playlistJSON)
 			.then((json) => {
-				alert("Done! Open Spotify to see your new playlist")
 				this.setState({
-					buttonText: "Get Recomendations",
-					buttonHandler: this.handleLoadClick.bind(this),
+					playlistID: json["id"],
+					playlistUsername: json["username"],
+					buttonText: "Go to playlist",
+					buttonHandler: this.getPlaylist.bind(this),
 					buttonDisabled: false
 				})
 			})
@@ -110,6 +115,11 @@ export default class UserApp extends React.Component<props, state> {
 					buttonDisabled: false
 				})
 			})
+	}
+
+	getPlaylist() {
+		const playlistURL = `https://open.spotify.com/user/${this.state.playlistUsername}/playlist/${this.state.playlistID}`
+		window.open(playlistURL, '_blank');
 	}
 
 	handleLoadClick() {
