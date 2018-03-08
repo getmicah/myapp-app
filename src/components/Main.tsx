@@ -7,6 +7,7 @@ import * as authActions from "../actions/AuthActions"
 
 import UserApp from "./UserApp"
 import HomePage from "./HomePage"
+import Footer from "./Footer"
 
 interface props {}
 interface state {
@@ -46,6 +47,7 @@ export default class Main extends React.Component<props, state> {
 				<main className={this.state.loaded ? null : "hidden"}>
 					{this.state.authenticated ? <UserApp /> : <HomePage />}
 				</main>
+				<Footer />
 			</div>
 		)
 	}
