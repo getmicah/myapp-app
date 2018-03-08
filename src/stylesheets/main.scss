@@ -92,10 +92,6 @@ footer {
 		flex: 0 0 20em;
 		> div {
 			padding-right: 2em;
-			// lel
-			@media only screen and (max-width: 638px) {
-				padding-right: 0;
-			}
 		}
 	}
 	input[type=text] {
@@ -160,6 +156,9 @@ footer {
 		flex: 0 0 20em;
 		> div {
 			padding: 1em 4em 1em 0;
+			@media only screen and (max-width: 638px) {
+				padding-right: 0;
+			}
 		}
 	}
 }
