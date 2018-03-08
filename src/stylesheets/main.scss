@@ -90,8 +90,12 @@ footer {
 	}
 	> div {
 		flex: 0 0 20em;
-		> div:nth-child(odd) {
+		> div {
 			padding-right: 2em;
+			// lel
+			@media only screen and (max-width: 638px) {
+				padding-right: 0;
+			}
 		}
 	}
 	input[type=text] {
