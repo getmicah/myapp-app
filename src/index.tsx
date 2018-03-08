@@ -10,8 +10,10 @@ import "./stylesheets/main.scss"
 const Root: React.StatelessComponent<null> = () => {
 	return (
 		<div id="app-container">
-			<Header />
-			<Main />
+			<div>
+				<Header />
+				<Main />
+			</div>
 			<Footer />
 		</div>
 	)

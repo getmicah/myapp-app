@@ -2,18 +2,20 @@
 
 #app-container {
 	min-height: 100vh;
+	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	font-family: 'Open Sans', sans-serif;
 	color: $color-grey-darker;
-	> * {
-		flex: 1;
+	> div {
+		flex: 1 0 auto;
 	}
 }
 header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding-top: 2em;
 }
 main {
 	transition: opacity 200ms ease;
@@ -22,9 +24,11 @@ main {
 	}
 }
 footer {
+	flex-shrink: 0;
 	display: flex;
+	flex-direction: row-reverse;
 	align-items: center;
-	padding: 0 1em;
+	padding: 2em;
 }
 .auth-link {
 	&-container {
