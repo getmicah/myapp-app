@@ -149,6 +149,9 @@ footer {
 				}
 			}
 		}
+		@media only screen and (max-width: 638px) {
+			padding-top: 1em;
+		}
 	}
 }
 #tuning-seeds {
