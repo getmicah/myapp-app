@@ -119,10 +119,7 @@ footer {
 		margin: 0 -1em;
 		background: white;
 		list-style: none;
-		padding-left: 1em;
-		@media only screen and (max-width: 638px) {
-			padding-top: 1em;
-		}
+		padding-left: 1em;x
 		li {
 			padding: 1em 0;
 			&.selected {
@@ -135,6 +132,9 @@ footer {
 		}
 	}
 	.selected-items {
+		@media only screen and (max-width: 638px) {
+			padding-top: 1em;
+		}
 		> span {
 			font-size: 1.2em;
 			font-weight: 700;
