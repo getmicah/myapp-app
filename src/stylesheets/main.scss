@@ -132,9 +132,6 @@ footer {
 		}
 	}
 	.selected-items {
-		@media only screen and (max-width: 638px) {
-			padding-top: 1em;
-		}
 		> span {
 			font-size: 1.2em;
 			font-weight: 700;
