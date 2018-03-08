@@ -1,20 +1,19 @@
 @import "colors";
 
-html, body {
-	height: 100%;
-	position: relative;
-}
 #app-container {
 	min-height: 100vh;
-	overflow: hidden;
-	display: block;
-	position: relative;
-	padding: 0 2em;
+	display: flex;
+	flex-direction: column;
 	font-family: 'Open Sans', sans-serif;
 	color: $color-grey-darker;
-	> div {
-		padding-bottom: 2em;
+	> * {
+		flex: 1;
 	}
+}
+header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 main {
 	transition: opacity 200ms ease;
@@ -22,18 +21,10 @@ main {
 		opacity: 0;
 	}
 }
-header {
-	display: flex;
-	justify-content: center;
-	padding-top: 2em;
-}
 footer {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
 	display: flex;
-	justify-content: center;
-	padding-bottom: 1em;
+	align-items: center;
+	padding: 0 1em;
 }
 .auth-link {
 	&-container {
