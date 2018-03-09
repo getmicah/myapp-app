@@ -40,6 +40,11 @@ class TrackStore extends EventEmitter {
 		}
 	}
 
+	clear(): void {
+		this.tracks = []
+		this.emit("change")
+	}
+
 	handleActions(action: Action) {
 		switch(action.type) {
 			case "ADD_TRACK":
@@ -50,6 +55,9 @@ class TrackStore extends EventEmitter {
 				break
 			case "REMOVE_TRACK_INDEX":
 				this.removeTrackByIndex(action.payload)
+				break
+			case "CLEAR_TRACKS":
+				this.clear()
 				break
 		}
 	}

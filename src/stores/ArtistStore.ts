@@ -40,6 +40,11 @@ class SpotifyStore extends EventEmitter {
 		}
 	}
 
+	clear(): void {
+		this.artists = [];
+		this.emit("change")
+	}
+
 	handleActions(action: Action) {
 		switch(action.type) {
 			case "ADD_ARTIST":
@@ -50,6 +55,9 @@ class SpotifyStore extends EventEmitter {
 				break
 			case "REMOVE_ARTIST_INDEX":
 				this.removeArtistByIndex(action.payload)
+				break
+			case "CLEAR_ARTISTS":
+				this.clear()
 				break
 		}
 	}

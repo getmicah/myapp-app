@@ -53,6 +53,14 @@ class SeedStore extends EventEmitter {
 		this.emit("change")
 	}
 
+	clear(): void {
+		this.danceability = null
+		this.energy = null
+		this.popularity = null
+		this.valence = null
+		this.emit("change")
+	}
+
 	handleActions(action: Action) {
 		switch(action.type) {
 			case "SET_DANCEABILITY":
@@ -66,6 +74,9 @@ class SeedStore extends EventEmitter {
 				break
 			case "SET_VALENCE":
 				this.setValence(action.payload)
+				break
+			case "CLEAR_SEEDS":
+				this.clear()
 				break
 		}
 	}

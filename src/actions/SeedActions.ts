@@ -28,3 +28,9 @@ export function setValence(value: number) {
 		payload: value
 	})
 }
+
+export function clear() {
+	dispatcher.dispatch({
+		type: "CLEAR_SEEDS"
+	})
+}

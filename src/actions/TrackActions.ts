@@ -21,3 +21,9 @@ export function removeByIndex(i: number) {
 		payload: i
 	})
 }
+
+export function clear() {
+	dispatcher.dispatch({
+		type: "CLEAR_TRACKS"
+	})
+}

@@ -7,11 +7,13 @@ import trackStore from "../stores/TrackStore"
 import seedStore from "../stores/SeedStore"
 import * as artistActions from "../actions/ArtistActions"
 import * as trackActions from "../actions/TrackActions"
+import * as seedActions from "../actions/SeedActions"
 
 import Logout from "./Logout"
 import SpotifySeeds from "./SpotifySeeds"
 import TuningSeeds from "./TuningSeeds"
 import MainButton from "./MainButton"
+import ResetButton from "./ResetButton"
 
 interface props {}
 interface state {
@@ -28,7 +30,8 @@ interface state {
 	buttonClass: string,
 	buttonDisabled: boolean,
 	buttonHandler: any,
-	buttonText: string
+	buttonText: string,
+	resetHandler: any
 }
 
 export default class UserApp extends React.Component<props, state> {
@@ -48,7 +51,8 @@ export default class UserApp extends React.Component<props, state> {
 			buttonClass: null,
 			buttonDisabled: false,
 			buttonHandler: this.handleLoadClick.bind(this),
-			buttonText: "Create Playlist"
+			buttonText: "Create Playlist",
+			resetHandler: this.handleReset.bind(this)
 		}
 	}
 
@@ -128,6 +132,20 @@ export default class UserApp extends React.Component<props, state> {
 		window.open(playlistURL, '_blank');
 	}
 
+	handleReset() {
+		this.setState({
+			playlistID: null,
+			playlistUsername: null,
+			playlistJSON: null,
+			buttonClass: null,
+			buttonHandler: this.handleLoadClick.bind(this),
+			buttonText: "Create Playlist"
+		})
+		artistActions.clear()
+		trackActions.clear()
+		seedActions.clear()
+	}
+
 	componentWillMount() {
 		artistStore.on("change", this.updateArtists.bind(this))
 		trackStore.on("change", this.updateTracks.bind(this))
@@ -159,6 +177,17 @@ export default class UserApp extends React.Component<props, state> {
 						disabled={this.state.buttonDisabled}
 						handler={this.state.buttonHandler}
 						text={this.state.buttonText}
+					/>
+					<ResetButton
+						handler={this.state.resetHandler}
+						show={
+							this.state.artists.length > 0 ||
+							this.state.tracks.length > 0 ||
+							this.state.danceability > 0 ||
+							this.state.energy > 0 ||
+							this.state.popularity > 0 ||
+							this.state.valence > 0
+						}
 					/>
 				</div>
 			</div>
