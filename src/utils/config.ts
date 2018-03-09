@@ -26,6 +26,6 @@ interface config {
 	appURL: string
 }
 
-const Config: config = require("../../config/config.local.json")
+const Config: config = require("../../config/config.json")
 
 export default Config
