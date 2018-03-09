@@ -144,7 +144,7 @@ footer {
 				padding: 0.5em 0;
 				&:hover {
 					cursor: pointer;
-					color: #ED1F32;
+					color: $color-red;
 					text-decoration: line-through;
 				}
 			}
@@ -208,6 +208,7 @@ footer {
 	outline: none;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 	transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+	transition: color 100ms linear, background 100ms linear;
 	-webkit-appearance: none !important;
 	&-container{
 		margin: 2em auto;

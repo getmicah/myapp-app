@@ -25,9 +25,10 @@ interface state {
 	playlistID: string,
 	playlistUsername: string,
 	playlistJSON: any,
-	buttonText: string,
+	buttonClass: string,
+	buttonDisabled: boolean,
 	buttonHandler: any,
-	buttonDisabled: boolean
+	buttonText: string
 }
 
 export default class UserApp extends React.Component<props, state> {
@@ -44,9 +45,10 @@ export default class UserApp extends React.Component<props, state> {
 			playlistID: null,
 			playlistUsername: null,
 			playlistJSON: null,
-			buttonText: "Get Recomendations",
+			buttonClass: null,
+			buttonDisabled: false,
 			buttonHandler: this.handleLoadClick.bind(this),
-			buttonDisabled: false
+			buttonText: "Create Playlist"
 		}
 	}
 
@@ -71,15 +73,23 @@ export default class UserApp extends React.Component<props, state> {
 		this.setState({searchType: this.state.searchType === "artist" ? "track" : "artist"})
 	}
 
+	handleLoadClick() {
+		if (this.state.artists.length > 0 || this.state.tracks.length > 0) {
+			this.setState({
+				buttonText: "Loading...",
+				buttonHandler: null,
+				buttonDisabled: true
+			})
+			this.loadRecs()
+		} else {
+			alert("Please select at least one artist or track")
+		}
+	}
+
 	loadRecs() {
 		api.getRec(this.state.artists, this.state.tracks, this.state.danceability, this.state.energy, this.state.popularity, this.state.valence)
 			.then((json) => {
-				this.setState({
-					playlistJSON: json,
-					buttonText: "Add Playlist to Spotify",
-					buttonHandler: this.addPlaylist.bind(this),
-					buttonDisabled: false
-				})
+				this.setState({playlistJSON: json}, this.addPlaylist.bind(this))
 			})
 			.catch((err) => {
 				alert("Oops. You're selections were to diverse for Spotify, try using more similair artists.")
@@ -91,18 +101,14 @@ export default class UserApp extends React.Component<props, state> {
 	}
 
 	addPlaylist() {
-		this.setState({
-			buttonText: "Adding...",
-			buttonHandler: null,
-			buttonDisabled: true
-		})
 		api.postPlaylist(this.state.playlistJSON)
 			.then((json) => {
 				this.setState({
 					playlistID: json["id"],
 					playlistUsername: json["username"],
-					buttonText: "Go to playlist",
-					buttonHandler: this.getPlaylist.bind(this),
+					buttonClass: "tada", // animate.css
+					buttonText: "Open playlist",
+					buttonHandler: this.openPlaylist.bind(this),
 					buttonDisabled: false
 				})
 			})
@@ -117,22 +123,9 @@ export default class UserApp extends React.Component<props, state> {
 			})
 	}
 
-	getPlaylist() {
+	openPlaylist() {
 		const playlistURL = `https://open.spotify.com/user/${this.state.playlistUsername}/playlist/${this.state.playlistID}`
 		window.open(playlistURL, '_blank');
-	}
-
-	handleLoadClick() {
-		if (this.state.artists.length > 0 || this.state.tracks.length > 0) {
-			this.setState({
-				buttonText: "Loading...",
-				buttonHandler: null,
-				buttonDisabled: true
-			})
-			this.loadRecs()
-		} else {
-			alert("Please select at least one artist or track")
-		}
 	}
 
 	componentWillMount() {
@@ -162,9 +155,10 @@ export default class UserApp extends React.Component<props, state> {
 						valence={this.state.valence}
 					/>
 					<MainButton
-						text={this.state.buttonText}
-						handler={this.state.buttonHandler}
+						class={this.state.buttonClass}
 						disabled={this.state.buttonDisabled}
+						handler={this.state.buttonHandler}
+						text={this.state.buttonText}
 					/>
 				</div>
 			</div>

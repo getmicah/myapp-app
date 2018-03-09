@@ -6,4 +6,5 @@ To test locally:
 
 * edit `/src/utils/config.ts` to include `/config/config.local.json`
 * start a local go server on port `3000`
+* `yarn start`
 * open [localhost:8080](http://localhost:8080)
