@@ -1,6 +1,6 @@
 # spotify-recs-app
 
-front end for [spotify-recs.github.io](https://spotify-recs.github.io)
+front end for ~~[spotify-recs.github.io](https://spotify-recs.github.io)~~ (Offline for now. Can't afford [api](https://github.com/spotify-recs/api) server costs at the moment :p)
 
 To test locally:
 
