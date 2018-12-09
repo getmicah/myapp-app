@@ -1,6 +1,6 @@
 # spotify-recs-app
 
-front end for ~~[spotify-recs.github.io](https://spotify-recs.github.io)~~ (Offline for now. Can't afford [api](https://github.com/spotify-recs/api) server costs at the moment :p)
+front end for ~~[spotify-recs.github.io](https://spotify-recs.github.io)~~ (Offline for now)
 
 To run locally:
 
@@ -21,6 +21,10 @@ Initial webapp:
 Stateful webapp:
 
 ![webapp2](https://raw.githubusercontent.com/spotify-recs/spotify-recs.github.io/master/demo/webapp2.png)
+
+Mobile view:
+
+![mobile](https://raw.githubusercontent.com/spotify-recs/spotify-recs.github.io/master/demo/mobile.png)
 
 Generated playlist:
 
