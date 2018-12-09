@@ -12,4 +12,13 @@ To test locally:
 ## Demo
 
 Landing page:
-![landing](https://raw.githubusercontent.com/spotify-recs/spotify-recs-app/master/demo/landing.png)
+![landing](https://raw.githubusercontent.com/spotify-recs/spotify-recs.github.io/master/demo/landing.png)
+
+Initial webapp:
+![webapp1](https://raw.githubusercontent.com/spotify-recs/spotify-recs.github.io/master/demo/webapp1.png)
+
+Stateful webapp:
+![webapp2](https://raw.githubusercontent.com/spotify-recs/spotify-recs.github.io/master/demo/webapp2.png)
+
+Generated playlist:
+![playlist](https://raw.githubusercontent.com/spotify-recs/spotify-recs.github.io/master/demo/playlist.png)
