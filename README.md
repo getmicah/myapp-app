@@ -21,3 +21,6 @@ Stateful webapp:
 
 Generated playlist:
 ![playlist](https://raw.githubusercontent.com/spotify-recs/spotify-recs.github.io/master/demo/playlist.png)
+
+Spotify app view:
+![spotify](https://raw.githubusercontent.com/spotify-recs/spotify-recs.github.io/master/demo/spotify.png)
