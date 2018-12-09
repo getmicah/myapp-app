@@ -8,3 +8,8 @@ To test locally:
 * start a local go server on port `3000`
 * `yarn start`
 * open [localhost:8080](http://localhost:8080)
+
+## Demo
+
+Landing page:
+![landing](https://raw.githubusercontent.com/spotify-recs/spotify-recs-app/master/demo/landing.png)
