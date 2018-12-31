@@ -10,6 +10,7 @@
     "build": "node_modules/.bin/webpack --config webpack.config.prod.ts"
   },
   "devDependencies": {
+    "@types/node": "^10.12.18",
     "autoprefixer-loader": "^3.2.0",
     "awesome-typescript-loader": "^3.3.0",
     "css-loader": "^0.28.7",
